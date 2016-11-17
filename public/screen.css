@@ -67,6 +67,11 @@ figure.draw img {
   filter: drop-shadow(0 0 5px hsl(0, 0%, 50%));
 }
 
+.scoreCounter {
+  display: flex;
+  flex-direction: column;
+}
+
 .scores {
   font-size: 5vw;
   display: flex;
@@ -78,6 +83,34 @@ figure.draw img {
 }
 
 .scores span.player {
+  text-align: right;
+}
+
+.scores h6 {
+  font-size: 2vw;
+  display: block;
+  position: absolute;
+  margin-top: -20px;
+}
+
+.matchScores {
+  font-size: 5vw;
+  display: flex;
+}
+
+.matchScores h6 {
+  font-size: 2vw;
+  position: absolute;
+  margin-top: -20px;
+  margin-right: 100px;
+}
+
+.matchScores span {
+  font-size: 5vw;
+  display: block;
+}
+
+.matchScores span.player {
   text-align: right;
 }
 
