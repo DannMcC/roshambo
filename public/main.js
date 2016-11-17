@@ -1,6 +1,8 @@
 const $ = s => document.querySelector(s)
 const $$ = s => document.querySelectorAll(s)
 
+const memory = { lastMove: '', lastWin: false }
+
 const handleButtonClick = (event) => {
   const player = event.target.className
   const computer = getComputerMove()
@@ -13,33 +15,60 @@ const handleButtonClick = (event) => {
   if (player === 'rock') {
     if (computer === 'scissors') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
+      $('figure.player').className = 'player win'
+      $('figure.computer').className = 'computer lose'
+      memory.lastWin = true
     }
     if (computer === 'paper') {
       $('.scores .computer').textContent = parseInt($('.scores .computer').textContent) + 1
+      $('figure.player').className = 'player lose'
+      $('figure.computer').className = 'computer win'
+      memory.lastWin = false
     }
     if (computer === 'rock') {
+      memory.lastWin = null
+      $('figure.player').className = 'player draw'
+      $('figure.computer').className = 'computer draw'
       // Its a tie, do nothing
     }
   }
   if (player === 'paper') {
     if (computer === 'rock') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
+      $('figure.player').className = 'player win'
+      $('figure.computer').className = 'computer lose'
+      memory.lastWin = true
     }
     if (computer === 'scissors') {
       $('.scores .computer').textContent = parseInt($('.scores .computer').textContent) + 1
+      memory.lastWin = false
+      $('figure.player').className = 'player lose'
+      $('figure.computer').className = 'computer win'
     }
     if (computer === 'paper') {
+      memory.lastWin = null
+      $('figure.player').className = 'player draw'
+      $('figure.computer').className = 'computer draw'
       // Its a tie, do nothing
     }
   }
   if (player === 'scissors') {
     if (computer === 'paper') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
+      memory.lastWin = true
+      $('figure.player').className = 'player win'
+      $('figure.computer').className = 'computer lose'
     }
     if (computer === 'rock') {
       $('.scores .computer').textContent = parseInt($('.scores .computer').textContent) + 1
+      memory.lastWin = false
+      $('figure.player').className = 'player lose'
+      $('figure.computer').className = 'computer win'
     }
     if (computer === 'scissors') {
+      memory.lastWin = null
+      $('figure.player').className = 'player draw'
+      $('figure.computer').className = 'computer draw'
       // Its a tie, do nothing
     }
   }
@@ -57,36 +86,60 @@ const handleButtonClick = (event) => {
   // Check for best two out of three and call gameover if needed
 
 // HINT: Check for win, lose or draw, then call `gameOver()` eventually.
+  memory.lastMove = player
 }
 
 const getComputerMove = () => {
   const moves = ['rock', 'paper', 'scissors']
-  const playerScore = parseInt($('.scores .player').textContent)
-  const computerScore = parseInt($('.scores .computer').textContent)
-  const pMatchScore = parseInt($('.matchScores .player').textContent)
-  const cMatchrScore = parseInt($('.matchScores .computer').textContent)
-  if (playerScore && computerScore && pMatchScore && cMatchrScore === 0) {
-    return moves[Math.floor(Math.random() * moves.length)]
+  const computerRandomMove = moves[Math.floor(Math.random() * moves.length)]
+  // const playerScore = parseInt($('.scores .player').textContent)
+  // const computerScore = parseInt($('.scores .computer').textContent)
+  // const pMatchScore = parseInt($('.matchScores .player').textContent)
+  // const cMatchrScore = parseInt($('.matchScores .computer').textContent)
+  memory.lastMove
+  memory.lastWin
+
+  if (memory.lastWin === true) {
+    if (memory.lastMove === 'rock') {
+      return 'paper'
+    }
+    if (memory.lastMove === 'paper') {
+      return 'scissors'
+    }
+    if (memory.lastMove === 'scissors') {
+      return 'rock'
+    }
   }
+  if (memory.lastWin === false) {
+    if (memory.lastMove === 'rock') {
+      return 'rock'
+    }
+    if (memory.lastMove === 'paper') {
+      return 'paper'
+    }
+    if (memory.lastMove === 'scissors') {
+      return 'scissors'
+    }
+  }
+  return computerRandomMove
 }
 
 // HINT: Try calling `gameOver(true)` in the console.
 const matchOver = (playerDidWin) => {
   if (playerDidWin) {
-    $('.dialog h3').textContent = 'Round goes to human!'
-    $('.dialog button').textContent = 'Continue'
+    // $('.dialog h3').textContent = 'Round goes to human!'
+    // $('.dialog button').textContent = 'Continue'
     $('.scores .computer').textContent = 0
     $('.scores .player').textContent = 0
     $('.matchScores .player').textContent = parseInt($('.matchScores .player').textContent) + 1
   } else {
-    ``
-    $('.dialog h3').textContent = 'The Machine is the victor!'
-    $('.dialog button').textContent = 'Continue'
+    // $('.dialog h3').textContent = 'The Machine is the victor!'
+    // $('.dialog button').textContent = 'Continue'
     $('.scores .computer').textContent = 0
     $('.scores .player').textContent = 0
     $('.matchScores .computer').textContent = parseInt($('.matchScores .computer').textContent) + 1
   }
-  $('body').className = 'modal'
+  // $('body').className = 'modal'
 
   const playerScore = parseInt($('.matchScores .player').textContent)
   const computerScore = parseInt($('.matchScores .computer').textContent)
@@ -118,6 +171,8 @@ const resetGame = () => {
   $('figure.player img').src = '/images/unknown.svg'
   $('figure.computer img').src = '/images/unknown.svg'
   $('body').className = ''
+  $('figure.player').className = 'player draw'
+  $('figure.computer').className = 'computer draw'
 }
 
 const main = () => {

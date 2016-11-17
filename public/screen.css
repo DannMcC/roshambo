@@ -102,7 +102,6 @@ figure.draw img {
   font-size: 2vw;
   position: absolute;
   margin-top: -20px;
-  margin-right: 100px;
 }
 
 .matchScores span {
