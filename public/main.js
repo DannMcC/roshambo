@@ -7,7 +7,7 @@ const handleButtonClick = (event) => {
   const player = event.target.className
   const computer = getComputerMove()
   $('figure.player img').src = `/images/${player}.svg`
-  // $('figure.computer img').src = `/images/${computer}.svg`
+  $('figure.computer img').src = `/images/${computer}.svg`
 
   console.log('player variable is ', player)
   console.log('computer variable is ', computer)
@@ -15,65 +15,105 @@ const handleButtonClick = (event) => {
   if (player === 'rock') {
     if (computer === 'scissors') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
-
+      $('figure.computer').className = 'computer think'
       $('figure.computer img').src = `/images/unknown.svg`
       setTimeout(() => {
+        $('figure.player').className = 'player win'
         $('figure.computer img').src = `/images/${computer}.svg`
         $('figure.computer').className = 'computer lose'
-      }, 1000)
-
+      }, 2000)
       memory.lastWin = true
     }
     if (computer === 'paper') {
       $('.scores .computer').textContent = parseInt($('.scores .computer').textContent) + 1
-      $('figure.player').className = 'player lose'
-      $('figure.computer').className = 'computer win'
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        $('figure.player').className = 'player lose'
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.computer').className = 'computer win'
+      }, 2000)
       memory.lastWin = false
     }
     if (computer === 'rock') {
-      memory.lastWin = null
-      $('figure.player').className = 'player draw'
-      $('figure.computer').className = 'computer draw'
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        memory.lastWin = null
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.player').className = 'player draw'
+        $('figure.computer').className = 'computer draw'
+      }, 1500)
       // Its a tie, do nothing
     }
   }
   if (player === 'paper') {
     if (computer === 'rock') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
-      $('figure.player').className = 'player win'
-      $('figure.computer').className = 'computer lose'
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        $('figure.player').className = 'player win'
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.computer').className = 'computer lose'
+      }, 2000)
       memory.lastWin = true
     }
     if (computer === 'scissors') {
       $('.scores .computer').textContent = parseInt($('.scores .computer').textContent) + 1
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        $('figure.player').className = 'player lose'
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.computer').className = 'computer win'
+      }, 2000)
       memory.lastWin = false
-      $('figure.player').className = 'player lose'
-      $('figure.computer').className = 'computer win'
     }
     if (computer === 'paper') {
-      memory.lastWin = null
-      $('figure.player').className = 'player draw'
-      $('figure.computer').className = 'computer draw'
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        memory.lastWin = null
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.player').className = 'player draw'
+        $('figure.computer').className = 'computer draw'
+      }, 1500)
       // Its a tie, do nothing
     }
   }
   if (player === 'scissors') {
     if (computer === 'paper') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        $('figure.player').className = 'player win'
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.computer').className = 'computer lose'
+      }, 2000)
       memory.lastWin = true
-      $('figure.player').className = 'player win'
-      $('figure.computer').className = 'computer lose'
     }
     if (computer === 'rock') {
       $('.scores .computer').textContent = parseInt($('.scores .computer').textContent) + 1
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        $('figure.player').className = 'player lose'
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.computer').className = 'computer win'
+      }, 2000)
       memory.lastWin = false
-      $('figure.player').className = 'player lose'
-      $('figure.computer').className = 'computer win'
     }
     if (computer === 'scissors') {
-      memory.lastWin = null
-      $('figure.player').className = 'player draw'
-      $('figure.computer').className = 'computer draw'
+      $('figure.computer').className = 'computer think'
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        memory.lastWin = null
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.player').className = 'player draw'
+        $('figure.computer').className = 'computer draw'
+      }, 1500)
       // Its a tie, do nothing
     }
   }
