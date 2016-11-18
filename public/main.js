@@ -7,7 +7,7 @@ const handleButtonClick = (event) => {
   const player = event.target.className
   const computer = getComputerMove()
   $('figure.player img').src = `/images/${player}.svg`
-  $('figure.computer img').src = `/images/${computer}.svg`
+  // $('figure.computer img').src = `/images/${computer}.svg`
 
   console.log('player variable is ', player)
   console.log('computer variable is ', computer)
@@ -15,8 +15,13 @@ const handleButtonClick = (event) => {
   if (player === 'rock') {
     if (computer === 'scissors') {
       $('.scores .player').textContent = parseInt($('.scores .player').textContent) + 1
-      $('figure.player').className = 'player win'
-      $('figure.computer').className = 'computer lose'
+
+      $('figure.computer img').src = `/images/unknown.svg`
+      setTimeout(() => {
+        $('figure.computer img').src = `/images/${computer}.svg`
+        $('figure.computer').className = 'computer lose'
+      }, 1000)
+
       memory.lastWin = true
     }
     if (computer === 'paper') {
